@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CatsListingDemo.BusinessInterfaces\CatsListingDemo.BusinessInterfaces.csproj" />
+    <ProjectReference Include="..\CatsListingDemo.Domain\CatsListingDemo.Domain.csproj" />
+    <ProjectReference Include="..\CatsListingDemo.RepositoryInterfaces\CatsListingDemo.RepositoryInterfaces.csproj" />
+  </ItemGroup>
+
 </Project>
