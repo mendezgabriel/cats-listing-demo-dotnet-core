@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatsListingDemo.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace CatsListingDemo.RepositoryInterfaces
 {
     public interface IPetOwnerRepository
     {
-        
+        IEnumerable<PetOwner> GetPetsByGender();
     }
 }
