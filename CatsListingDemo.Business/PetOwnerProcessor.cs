@@ -22,10 +22,11 @@ namespace CatsListingDemo.Business
         public List<PetOwner> GetPetsByGender()
         {
             var petsByGender = _petOwnerRepository.GetAll()
-                .GroupBy(petOwner => petOwner.Gender)
-                .OrderBy(petOwner => petOwner.Key);
+               // .GroupBy(petOwner => petOwner.Gender)
+               // .OrderBy(petOwner => petOwner.Key);
+               .OrderBy(petOwner => petOwner.Gender);
 
-            return new List<PetOwner>();
+            return petsByGender.ToList();
 
         }
     }

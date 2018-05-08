@@ -21,7 +21,7 @@ namespace CatsListingDemo.WebMvc.Controllers
         public ActionResult Index()
         {
             var result = _petOwnerProcessor.GetPetsByGender();
-            return View();
+            return View(result);
         }
 
         // GET: Pets/Details/5

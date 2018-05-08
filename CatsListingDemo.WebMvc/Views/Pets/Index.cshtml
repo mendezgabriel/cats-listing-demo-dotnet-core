@@ -1,7 +1,27 @@
-﻿
+﻿@model List<CatsListingDemo.Domain.PetOwner>
 @{
     ViewData["Title"] = "Index";
 }
 
+@using CatsListingDemo.Domain
+
 <h2>Pets List</h2>
 
+@{
+    <div>
+        <ul>
+            @foreach (var owner in Model)
+            {
+                <li>
+                    @Enum.GetName(typeof(Gender), owner.Gender) - @owner.Name
+                    <ol>
+                        @foreach (var pet in owner.Pets)
+                        {
+                            <li>@pet.Name - @Enum.GetName(typeof(PetType), pet.Type)</li>
+                        }
+                    </ol>
+                </li>
+            }
+        </ul>
+    </div>
+}

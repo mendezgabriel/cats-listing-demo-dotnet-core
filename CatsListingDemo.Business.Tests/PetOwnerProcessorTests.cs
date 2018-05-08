@@ -1,12 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using FluentAssertions;
 using AutoFixture.AutoFakeItEasy;
 using AutoFixture;
 using FakeItEasy;
-using CatsListingDemo.Business;
 using CatsListingDemo.RepositoryInterfaces;
 using CatsListingDemo.Domain;
 
@@ -15,12 +12,13 @@ namespace CatsListingDemo.Business.Tests
     [TestClass]
     public class PetOwnerProcessorTests
     {
-        static Fixture _fixture;
-        PetOwnerProcessor _systemUnderTest;
-        Fake<IPetOwnerRepository> _petOwnerRepository;
+        private static Fixture _fixture;
+        private PetOwnerProcessor _systemUnderTest;
+        private List<PetOwner> _petOwnersList;
+        private Fake<IPetOwnerRepository> _petOwnerRepository;
 
         [ClassInitialize]
-        public static void SetUpAutoMocking(TestContext context)
+        public static void SetUpTestFixture(TestContext context)
         {
             _fixture = new Fixture();
             _fixture.Customize(new AutoFakeItEasyCustomization());
@@ -32,6 +30,9 @@ namespace CatsListingDemo.Business.Tests
             // Arrange
             _petOwnerRepository = _fixture.Freeze<Fake<IPetOwnerRepository>>();
             _systemUnderTest = _fixture.Create<PetOwnerProcessor>();
+
+            _petOwnersList = _fixture.Freeze<List<PetOwner>>();
+            A.CallTo(() => _petOwnerRepository.FakedObject.GetAll()).Returns(_petOwnersList);
 
         }
 
