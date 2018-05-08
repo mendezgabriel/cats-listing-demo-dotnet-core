@@ -8,6 +8,7 @@ using AutoFixture;
 using FakeItEasy;
 using CatsListingDemo.Business;
 using CatsListingDemo.RepositoryInterfaces;
+using CatsListingDemo.Domain;
 
 namespace CatsListingDemo.Business.Tests
 {
@@ -35,14 +36,23 @@ namespace CatsListingDemo.Business.Tests
         }
 
         [TestMethod]
-        public void GetPetsByGenderShouldReturnAListOfPets()
+        public void GetPetsByGenderShouldNotBeNull()
         {
             // Act
             var result = _systemUnderTest.GetPetsByGender();
 
             // Assert
-            result.Should().BeNullOrEmpty();
+            result.Should().NotBeNull();
         }
 
+        [TestMethod]
+        public void GetPetsByGenderShouldReturnAListOfPetOwners()
+        {
+            // Act
+            var result = _systemUnderTest.GetPetsByGender();
+
+            // Assert
+            result.Should().BeOfType<List<PetOwner>>();
+        }
     }
 }

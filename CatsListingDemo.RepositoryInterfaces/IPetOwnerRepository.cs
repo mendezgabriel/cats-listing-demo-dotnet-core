@@ -9,6 +9,6 @@ namespace CatsListingDemo.RepositoryInterfaces
 {
     public interface IPetOwnerRepository
     {
-        IEnumerable<PetOwner> GetPetsByGender();
+        IEnumerable<PetOwner> GetPetOwners();
     }
 }

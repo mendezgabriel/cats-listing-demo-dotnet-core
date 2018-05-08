@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CatsListingDemo.BusinessInterfaces;
 using CatsListingDemo.Domain;
 using CatsListingDemo.RepositoryInterfaces;
+using System.Linq;
 
 namespace CatsListingDemo.Business
 {
@@ -20,7 +21,12 @@ namespace CatsListingDemo.Business
 
         public List<PetOwner> GetPetsByGender()
         {
-            throw new NotImplementedException();
+            var petsByGender = _petOwnerRepository.GetPetOwners()
+                .GroupBy(petOwner => petOwner.Gender)
+                .OrderBy(petOwner => petOwner.Key);
+
+            return new List<PetOwner>();
+
         }
     }
 }
