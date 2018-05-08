@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace CatsListingDemo.DataService.Controllers
 {
     [Route("api/[controller]")]
-    public class PetOwnerController : Controller, IPetOwnerRepository
+    public class PetOwnersController : Controller, IPetOwnerRepository
     {
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<PetOwner> GetPetOwners()
+        public IEnumerable<PetOwner> GetAll()
         {
             return new PetOwner[] {
                 new PetOwner

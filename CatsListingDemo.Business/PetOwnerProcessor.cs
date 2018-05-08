@@ -21,7 +21,7 @@ namespace CatsListingDemo.Business
 
         public List<PetOwner> GetPetsByGender()
         {
-            var petsByGender = _petOwnerRepository.GetPetOwners()
+            var petsByGender = _petOwnerRepository.GetAll()
                 .GroupBy(petOwner => petOwner.Gender)
                 .OrderBy(petOwner => petOwner.Key);
 
