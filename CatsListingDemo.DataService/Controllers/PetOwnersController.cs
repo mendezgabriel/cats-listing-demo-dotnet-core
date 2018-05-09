@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using CatsListingDemo.Domain;
 using CatsListingDemo.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CatsListingDemo.DataService.Controllers
 {
@@ -16,49 +19,29 @@ namespace CatsListingDemo.DataService.Controllers
         [HttpGet]
         public IEnumerable<PetOwner> GetAll()
         {
-            return new PetOwner[] {
-                new PetOwner
+            var petOwners = new PetOwner[] { };
+            string url = "http://agl-developer-test.azurewebsites.net/people.json";
+
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.Method = WebRequestMethods.Http.Get;
+            httpWebRequest.Accept = "text/json";
+
+            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+            string responseContent = string.Empty;
+            using (response)
+            {
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    Gender = Gender.Male,
-                    Name = "Owner1",
-                    Pets = new Pet[]
-                    {
-                        new Pet{ Name = "Garfield", Type = PetType.Cat },
-                        new Pet{ Name = "Moly", Type = PetType.Cat },
-                        new Pet{ Name = "Tigger", Type = PetType.Dog }
-                    }
-                },
-                new PetOwner
-                {
-                    Gender = Gender.Male,
-                    Name = "Owner2",
-                    Pets = new Pet[]
-                    {
-                        new Pet{ Name = "Fluffy", Type = PetType.Cat },
-                        new Pet{ Name = "Nemo", Type = PetType.Fish }
-                    }
-                },
-                new PetOwner
-                {
-                    Gender = Gender.Female,
-                    Name = "Owner3",
-                    Pets = new Pet[]
-                    {
-                        new Pet{ Name = "Lindsey", Type = PetType.Dog },
-                        new Pet{ Name = "Puggles", Type = PetType.Cat },
-                    }
-                },
-                new PetOwner
-                {
-                    Gender = Gender.Female,
-                    Name = "Owner4",
-                    Pets = new Pet[]
-                    {
-                        new Pet{ Name = "Ligthning", Type = PetType.Cat },
-                        new Pet{ Name = "Ray", Type = PetType.Fish }
-                    }
+                    responseContent = reader.ReadToEnd();
                 }
-            };
+            }
+
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                petOwners = JsonConvert.DeserializeObject<PetOwner[]>(responseContent);
+            }
+            
+            return petOwners;
         }
 
     }
