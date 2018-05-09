@@ -1,13 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CatsListingDemo.Domain
+﻿namespace CatsListingDemo.Domain
 {
+    /// <summary>
+    /// Defines the types of a <see cref="Pet"/>.
+    /// </summary>
     public enum PetType
     {
+        /// <summary>
+        /// Cat.
+        /// </summary>
         Cat,
+
+        /// <summary>
+        /// Dog.
+        /// </summary>
         Dog,
-        Fish
+
+        /// <summary>
+        /// Fish
+        /// </summary>
+        Fish,
+
+        /// <summary>
+        /// The type can't be determined.
+        /// </summary>
+        Unknown
     }
 }

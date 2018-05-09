@@ -10,22 +10,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CatsListingDemo.WebMvc.Controllers
 {
+    /// <summary>
+    /// Provides server-side logic for the portions of the UI that relate to pets.
+    /// </summary>
     public class PetsController : Controller
     {
-        private IPetOwnerProcessor _petOwnerProcessor;
+        private readonly IPetOwnerProcessor _petOwnerProcessor;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="petOwnerProcessor">How to process pet owners related data according to business rules.</param>
         public PetsController(IPetOwnerProcessor petOwnerProcessor)
         {
             _petOwnerProcessor = petOwnerProcessor;
         }
 
         // GET: Pets
+        /// <summary>
+        /// Renders the pets view.
+        /// </summary>
+        /// <returns>The view.</returns>
         public ActionResult Index()
         {
-
+            var petTypeFilter = PetType.Cat;
             var viewModel = new List<PetsByOwnersGenderViewModel>();
 
-            var ownersByGenderGroup = _petOwnerProcessor.GetAll()
+            var ownersByGenderGroup = _petOwnerProcessor.GetAllBy(petTypeFilter)
                 .GroupBy(owner => owner.Gender);
 
             ownersByGenderGroup.ToList().ForEach(groupedItem =>
@@ -36,7 +47,7 @@ namespace CatsListingDemo.WebMvc.Controllers
                     Pets = groupedItem.SelectMany(owner => {
 
                         return owner.Pets
-                        .Where(pet => pet.Type == PetType.Cat)
+                        .Where(pet => pet.Type == petTypeFilter)
                         .OrderBy(pet => pet.Name);
 
                     })

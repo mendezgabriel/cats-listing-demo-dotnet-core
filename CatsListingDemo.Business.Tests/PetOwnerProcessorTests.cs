@@ -16,6 +16,7 @@ namespace CatsListingDemo.Business.Tests
         private PetOwnerProcessor _systemUnderTest;
         private List<PetOwner> _petOwnersList;
         private Fake<IPetOwnerRepository> _petOwnerRepository;
+        private PetType _petType;
 
         [ClassInitialize]
         public static void SetUpTestFixture(TestContext context)
@@ -30,6 +31,7 @@ namespace CatsListingDemo.Business.Tests
             // Arrange
             _petOwnerRepository = _fixture.Freeze<Fake<IPetOwnerRepository>>();
             _systemUnderTest = _fixture.Create<PetOwnerProcessor>();
+            _petType = PetType.Unknown;
 
             _petOwnersList = _fixture.Freeze<List<PetOwner>>();
             A.CallTo(() => _petOwnerRepository.FakedObject.GetAll()).Returns(_petOwnersList);
@@ -37,20 +39,20 @@ namespace CatsListingDemo.Business.Tests
         }
 
         [TestMethod]
-        public void GetPetsByGenderShouldNotBeNull()
+        public void GetOwnersByPetTypeShouldNotBeNull()
         {
             // Act
-            var result = _systemUnderTest.GetAll();
+            var result = _systemUnderTest.GetAllBy(_petType);
 
             // Assert
             result.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void GetPetsByGenderShouldReturnAListOfPetOwners()
+        public void GetOwnersByPetTypeShouldReturnAListOfPetOwners()
         {
             // Act
-            var result = _systemUnderTest.GetAll();
+            var result = _systemUnderTest.GetAllBy(_petType);
 
             // Assert
             result.Should().BeOfType<List<PetOwner>>();

@@ -9,15 +9,28 @@ using Newtonsoft.Json;
 
 namespace CatsListingDemo.DataAccess
 {
+    /// <summary>
+    /// Provides implementation details for the <see cref="IPetOwnerRepository"/>.
+    /// </summary>
     public class PetOwnerRepository : IPetOwnerRepository
     {
+        private readonly IConfiguration _configuration;
         private string _petOwnersServiceUrl;
 
+        /// <summary>
+		/// Creates a new instance of this.
+		/// </summary>
+		/// <param name="configuration">How to persist/retrieve configuration data.</param>
         public PetOwnerRepository(IConfiguration configuration)
         {
-            _petOwnersServiceUrl = configuration["PetOwnersService:Url"];
+            _configuration = configuration;
+            _petOwnersServiceUrl = _configuration["PetOwnersService:Url"];
         }
 
+        /// <summary>
+        /// Gets a collection of all pet owners from the data store.
+        /// </summary>
+        /// <returns>A collection of <see cref="PetOwner"/>.</returns>
         public IEnumerable<PetOwner> GetAll()
         {
             var petOwners = new PetOwner[] { };
@@ -32,6 +45,11 @@ namespace CatsListingDemo.DataAccess
             return petOwners;
         }
 
+        /// <summary>
+        /// Gets the response content text of a specified service by its Url.
+        /// </summary>
+        /// <param name="serviceUrl">The service address.</param>
+        /// <returns>The response context text.</returns>
         private string GetServiceData(string serviceUrl)
         {
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(serviceUrl);
@@ -42,9 +60,12 @@ namespace CatsListingDemo.DataAccess
             string responseContent = string.Empty;
             using (serviceResponse)
             {
-                using (StreamReader reader = new StreamReader(serviceResponse.GetResponseStream()))
+                if (serviceResponse.StatusCode == HttpStatusCode.OK)
                 {
-                    responseContent = reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(serviceResponse.GetResponseStream()))
+                    {
+                        responseContent = reader.ReadToEnd();
+                    }
                 }
             }
 
