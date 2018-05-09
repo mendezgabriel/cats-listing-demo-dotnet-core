@@ -31,14 +31,7 @@ namespace CatsListingDemo.Domain
         public IEnumerable<Pet> Pets {
 
             get { return _pets; }
-            set {
-                var data = value;
-                if(data == null || data.Count() == 0)
-                {
-                    data = new List<Pet>();
-                }
-                _pets = data;
-            }
+            set { _pets = value ?? new List<Pet>(); }
         }
     }
 }
