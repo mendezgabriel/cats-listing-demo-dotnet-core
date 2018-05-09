@@ -31,7 +31,7 @@ namespace CatsListingDemo.WebMvc.Controllers
         /// Renders the pets view.
         /// </summary>
         /// <returns>The view.</returns>
-        public ActionResult Index()
+        public ActionResult Cats()
         {
             var petTypeFilter = PetType.Cat;
             var viewModel = new List<PetsByOwnersGenderViewModel>();
@@ -57,7 +57,7 @@ namespace CatsListingDemo.WebMvc.Controllers
 
             });
 
-            return View(viewModel);
+            return View("CatsByOwnersGender", viewModel);
         }
     }
 }
