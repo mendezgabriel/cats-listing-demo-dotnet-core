@@ -14,6 +14,7 @@ namespace CatsListingDemo.DataAccess
     /// </summary>
     public class PetOwnerRepository : IPetOwnerRepository
     {
+        private readonly IDataService _dataService;
         private readonly IConfiguration _configuration;
         private string _petOwnersServiceUrl;
 
@@ -21,8 +22,11 @@ namespace CatsListingDemo.DataAccess
 		/// Creates a new instance of this.
 		/// </summary>
 		/// <param name="configuration">How to persist/retrieve configuration data.</param>
-        public PetOwnerRepository(IConfiguration configuration)
+        /// <param name="dataService">The external data service.</param>
+        public PetOwnerRepository(IConfiguration configuration,
+            IDataService dataService)
         {
+            _dataService = dataService;
             _configuration = configuration;
             _petOwnersServiceUrl = _configuration["PetOwnersService:Url"];
         }
@@ -35,41 +39,14 @@ namespace CatsListingDemo.DataAccess
         {
             var petOwners = new PetOwner[] { };
 
-            string serviceData = GetServiceData(_petOwnersServiceUrl);
+            string resourceContent = _dataService.GetResourceContent(_petOwnersServiceUrl);
 
-            if (!string.IsNullOrWhiteSpace(serviceData))
+            if (!string.IsNullOrWhiteSpace(resourceContent))
             {
-                petOwners = JsonConvert.DeserializeObject<PetOwner[]>(serviceData);
+                petOwners = JsonConvert.DeserializeObject<PetOwner[]>(resourceContent);
             }
 
             return petOwners;
-        }
-
-        /// <summary>
-        /// Gets the response content text of a specified service by its Url.
-        /// </summary>
-        /// <param name="serviceUrl">The service address.</param>
-        /// <returns>The response context text.</returns>
-        private string GetServiceData(string serviceUrl)
-        {
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(serviceUrl);
-            httpWebRequest.Method = WebRequestMethods.Http.Get;
-            httpWebRequest.Accept = "text/json";
-
-            HttpWebResponse serviceResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            string responseContent = string.Empty;
-            using (serviceResponse)
-            {
-                if (serviceResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    using (StreamReader reader = new StreamReader(serviceResponse.GetResponseStream()))
-                    {
-                        responseContent = reader.ReadToEnd();
-                    }
-                }
-            }
-
-            return responseContent;
         }
     }
 }

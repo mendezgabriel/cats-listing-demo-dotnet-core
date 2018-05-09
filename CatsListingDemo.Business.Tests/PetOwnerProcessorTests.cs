@@ -6,6 +6,8 @@ using AutoFixture;
 using FakeItEasy;
 using CatsListingDemo.RepositoryInterfaces;
 using CatsListingDemo.Domain;
+using System.Linq;
+using System;
 
 namespace CatsListingDemo.Business.Tests
 {
@@ -56,6 +58,37 @@ namespace CatsListingDemo.Business.Tests
 
             // Assert
             result.Should().BeOfType<List<PetOwner>>();
+        }
+
+        [TestMethod]
+        public void GetOwnersByPetTypeShouldReturnOwnersWithTheSpecifiedPetTypeOnly()
+        {
+            // Arrange
+            _petType = PetType.Dog;
+            _petOwnersList[0].Pets = new List<Pet>() {
+                    new Pet{ Name = "Ray", Type = PetType.Fish },
+                    new Pet { Name = "Rufus", Type = PetType.Dog }
+                };
+            _petOwnersList[1].Pets = new List<Pet>() {
+                    new Pet{ Name = "Fluffy", Type = PetType.Cat }
+                };
+            _petOwnersList[2].Pets = new List<Pet>() {
+                    new Pet{ Name = "Guardian", Type = PetType.Dog }
+                };
+
+            // Act
+            var result = _systemUnderTest.GetAllBy(_petType);
+
+            // Assert
+            result.TrueForAll(owner =>
+            {
+                var ownsPetType = owner.Pets.Any(p => p.Type == _petType);
+                return ownsPetType;
+
+            }).Should()
+            .BeTrue($"because there should be only owners with pets of type '{Enum.GetName(typeof(PetType), _petType)}' included in the results");
+
+            result.Count().Should().Be(2);
         }
     }
 }
