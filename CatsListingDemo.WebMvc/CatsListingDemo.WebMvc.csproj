@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CatsListingDemo.BusinessInterfaces\CatsListingDemo.BusinessInterfaces.csproj" />
     <ProjectReference Include="..\CatsListingDemo.Business\CatsListingDemo.Business.csproj" />
-    <ProjectReference Include="..\CatsListingDemo.DataService\CatsListingDemo.DataService.csproj" />
+    <ProjectReference Include="..\CatsListingDemo.DataAccess\CatsListingDemo.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

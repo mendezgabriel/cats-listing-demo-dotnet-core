@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CatsListingDemo.Business;
+﻿using CatsListingDemo.Business;
 using CatsListingDemo.BusinessInterfaces;
-using CatsListingDemo.DataService.Controllers;
+using CatsListingDemo.DataAccess;
 using CatsListingDemo.RepositoryInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +21,7 @@ namespace CatsListingDemo.WebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IPetOwnerRepository, PetOwnersController>();
+            services.AddScoped<IPetOwnerRepository, PetOwnerRepository>();
             services.AddScoped<IPetOwnerProcessor, PetOwnerProcessor>();
 
             services.AddMvc();
