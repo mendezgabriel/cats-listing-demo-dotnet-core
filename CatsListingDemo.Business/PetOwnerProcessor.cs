@@ -19,15 +19,9 @@ namespace CatsListingDemo.Business
             _petOwnerRepository = petOwnerRepository;
         }
 
-        public List<PetOwner> GetPetsByGender()
+        public IEnumerable<PetOwner> GetAll()
         {
-            var petsByGender = _petOwnerRepository.GetAll()
-               // .GroupBy(petOwner => petOwner.Gender)
-               // .OrderBy(petOwner => petOwner.Key);
-               .OrderBy(petOwner => petOwner.Gender);
-
-            return petsByGender.ToList();
-
+            return _petOwnerRepository.GetAll();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace CatsListingDemo.BusinessInterfaces
 {
     public interface IPetOwnerProcessor
     {
-        List<PetOwner> GetPetsByGender();
+        IEnumerable<PetOwner> GetAll();
     }
 }

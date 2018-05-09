@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CatsListingDemo.BusinessInterfaces;
+using CatsListingDemo.Domain;
+using CatsListingDemo.WebMvc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,83 +22,31 @@ namespace CatsListingDemo.WebMvc.Controllers
         // GET: Pets
         public ActionResult Index()
         {
-            var result = _petOwnerProcessor.GetPetsByGender();
-            return View(result);
-        }
 
-        // GET: Pets/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+            var viewModel = new List<PetsByOwnersGenderViewModel>();
 
-        // GET: Pets/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            var ownersByGenderGroup = _petOwnerProcessor.GetAll()
+                .GroupBy(owner => owner.Gender);
 
-        // POST: Pets/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            ownersByGenderGroup.ToList().ForEach(groupedItem =>
             {
-                // TODO: Add insert logic here
+                var viewModelItem = new PetsByOwnersGenderViewModel
+                {
+                    OwnerGender = groupedItem.Key,
+                    Pets = groupedItem.SelectMany(owner => {
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                        return owner.Pets
+                        .Where(pet => pet.Type == PetType.Cat)
+                        .OrderBy(pet => pet.Name);
 
-        // GET: Pets/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+                    })
+                };
 
-        // POST: Pets/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+                viewModel.Add(viewModelItem);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            });
 
-        // GET: Pets/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Pets/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View(viewModel);
         }
     }
 }

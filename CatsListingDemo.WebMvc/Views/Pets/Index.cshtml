@@ -1,27 +1,25 @@
-﻿@model List<CatsListingDemo.Domain.PetOwner>
+﻿@model List<PetsByOwnersGenderViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 
 @using CatsListingDemo.Domain
 
-<h2>Pets List</h2>
+<h2>Cats List</h2>
 
 @{
     <div>
-        <ul>
-            @foreach (var owner in Model)
-            {
-                <li>
-                    @Enum.GetName(typeof(Gender), owner.Gender) - @owner.Name
-                    <ol>
-                        @foreach (var pet in owner.Pets)
-                        {
-                            <li>@pet.Name - @Enum.GetName(typeof(PetType), pet.Type)</li>
-                        }
-                    </ol>
-                </li>
-            }
-        </ul>
+        @foreach (var item in Model)
+        {
+
+            <h3>@Enum.GetName(typeof(Gender), item.OwnerGender)</h3>
+            <ul>
+                @foreach (var pet in item.Pets)
+                {
+                    <li>@pet.Name - @Enum.GetName(typeof(PetType), pet.Type)</li>
+                }
+            </ul>
+
+        }
     </div>
 }

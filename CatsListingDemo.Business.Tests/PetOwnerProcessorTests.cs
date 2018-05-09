@@ -40,7 +40,7 @@ namespace CatsListingDemo.Business.Tests
         public void GetPetsByGenderShouldNotBeNull()
         {
             // Act
-            var result = _systemUnderTest.GetPetsByGender();
+            var result = _systemUnderTest.GetAll();
 
             // Assert
             result.Should().NotBeNull();
@@ -50,7 +50,7 @@ namespace CatsListingDemo.Business.Tests
         public void GetPetsByGenderShouldReturnAListOfPetOwners()
         {
             // Act
-            var result = _systemUnderTest.GetPetsByGender();
+            var result = _systemUnderTest.GetAll();
 
             // Assert
             result.Should().BeOfType<List<PetOwner>>();
