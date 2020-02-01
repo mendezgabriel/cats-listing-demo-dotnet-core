@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.Domain", "CatsListingDemo.Domain\CatsListingDemo.Domain.csproj", "{7B55B4C0-6373-493B-8E68-0A8D4BD35B9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Solution Items", "0 Solution Items", "{03C1602B-03FB-45CB-A127-68293AF8C1C3}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 User Interface", "1 User Interface", "{0E80350C-580C-4A1D-9422-E3BEACB82650}"
 EndProject
@@ -37,11 +40,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.Business.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.WebMvc", "CatsListingDemo.WebMvc\CatsListingDemo.WebMvc.csproj", "{EFE6AE98-52D9-44A2-93E2-814B7A4D9DE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatsListingDemo.DataAccess", "CatsListingDemo.DataAccess\CatsListingDemo.DataAccess.csproj", "{8E5FD527-C990-42D3-91E8-FFBFDA440F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.DataAccess", "CatsListingDemo.DataAccess\CatsListingDemo.DataAccess.csproj", "{8E5FD527-C990-42D3-91E8-FFBFDA440F84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatsListingDemo.DataAccess.Tests", "CatsListingDemo.DataAccess.Tests\CatsListingDemo.DataAccess.Tests.csproj", "{7B00C4D8-8AC1-4D4F-B73B-D483DDFFF559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.DataAccess.Tests", "CatsListingDemo.DataAccess.Tests\CatsListingDemo.DataAccess.Tests.csproj", "{7B00C4D8-8AC1-4D4F-B73B-D483DDFFF559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatsListingDemo.Domain.Tests", "CatsListingDemo.Domain.Tests\CatsListingDemo.Domain.Tests.csproj", "{37D3E646-A674-42A7-8541-690C2F1CDBCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatsListingDemo.Domain.Tests", "CatsListingDemo.Domain.Tests\CatsListingDemo.Domain.Tests.csproj", "{37D3E646-A674-42A7-8541-690C2F1CDBCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
