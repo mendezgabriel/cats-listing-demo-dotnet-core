@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CatsListingDemo.BusinessInterfaces
 {
-    // <summary>
+    /// <summary>
     /// Defines the contract methods for the business layer in order to process a <see cref="Domain.PetOwner"/> object.
     /// </summary>
     public interface IPetOwnerProcessor
