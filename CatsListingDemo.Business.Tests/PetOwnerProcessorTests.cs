@@ -36,7 +36,7 @@ namespace CatsListingDemo.Business.Tests
             _petType = PetType.Unknown;
 
             _petOwnersList = _fixture.Freeze<List<PetOwner>>();
-            A.CallTo(() => _petOwnerRepository.FakedObject.GetAll()).Returns(_petOwnersList);
+            A.CallTo(() => _petOwnerRepository.FakedObject.GetAllAsync()).Returns(_petOwnersList);
 
         }
 

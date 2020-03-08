@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace CatsListingDemo.DataAccess
 {
@@ -35,7 +36,7 @@ namespace CatsListingDemo.DataAccess
         /// Gets a collection of all pet owners from the data store.
         /// </summary>
         /// <returns>A collection of <see cref="PetOwner"/>.</returns>
-        public IEnumerable<PetOwner> GetAll()
+        public async Task<IEnumerable<PetOwner>> GetAllAsync()
         {
             var petOwners = new PetOwner[] { };
 

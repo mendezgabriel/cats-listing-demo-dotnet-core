@@ -16,6 +16,6 @@ namespace CatsListingDemo.RepositoryInterfaces
         /// Gets a collection of all pet owners from the data store.
         /// </summary>
         /// <returns>A collection of <see cref="PetOwner"/>.</returns>
-        IEnumerable<PetOwner> GetAll();
+        Task<IEnumerable<PetOwner>> GetAllAsync();
     }
 }

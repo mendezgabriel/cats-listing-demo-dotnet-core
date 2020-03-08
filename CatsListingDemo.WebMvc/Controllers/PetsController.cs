@@ -31,12 +31,12 @@ namespace CatsListingDemo.WebMvc.Controllers
         /// Renders the pets view.
         /// </summary>
         /// <returns>The view.</returns>
-        public ActionResult Cats()
+        public async Task<ActionResult> Cats()
         {
             var petTypeFilter = PetType.Cat;
             var viewModel = new List<PetsByOwnersGenderViewModel>();
 
-            var ownersByGenderGroup = _petOwnerProcessor.GetAllBy(petTypeFilter)
+            var ownersByGenderGroup = (await _petOwnerProcessor.GetAllByAsync(petTypeFilter))
                 .GroupBy(owner => owner.Gender);
 
             ownersByGenderGroup.ToList().ForEach(groupedItem =>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CatsListingDemo.BusinessInterfaces;
 using CatsListingDemo.Domain;
 using CatsListingDemo.RepositoryInterfaces;
@@ -28,9 +29,9 @@ namespace CatsListingDemo.Business
         /// </summary>
         /// <param name="petType">The type of pet to be used as a filter.</param>
         /// <returns>A filtered collection of <see cref="PetOwner"/>.</returns>
-        public List<PetOwner> GetAllBy(PetType petType)
+        public async Task<List<PetOwner>> GetAllByAsync(PetType petType)
         {
-            var ownersByPetType = _petOwnerRepository.GetAll()
+            var ownersByPetType = (await _petOwnerRepository.GetAllAsync())
                 .Where(owner => owner.Pets.Any(pet => pet.Type == petType));
 
             return ownersByPetType.ToList();

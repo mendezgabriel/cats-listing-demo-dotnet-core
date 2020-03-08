@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CatsListingDemo.BusinessInterfaces
 {
@@ -16,6 +17,6 @@ namespace CatsListingDemo.BusinessInterfaces
         /// </summary>
         /// <param name="petType">The type of pet to be used as a filter.</param>
         /// <returns>A filtered collection of <see cref="PetOwner"/>.</returns>
-        List<PetOwner> GetAllBy(PetType petType);
+        Task <List<PetOwner>> GetAllByAsync(PetType petType);
     }
 }
