@@ -10,7 +10,7 @@ This application was developed as a web application using MVC (.net core) to dem
 
 It uses dependency injection to resolve all dependencies.
 
-It reads the data from an externally available source and uses retry policies for resilience with [Polly](https://github.com/App-vNext/Polly)
+It asynchronously reads the data from an externally available source and uses retry policies for resilience with [Polly](https://github.com/App-vNext/Polly).
 
 1. Software dependencies
    - DotNetCore 3.1 SDK for building.
@@ -21,7 +21,7 @@ It reads the data from an externally available source and uses retry policies fo
 ## Build
 
 1. Build from command line by navigating to the root folder and executing `dotnet build`.
-2. 3. To run the UI project, navigate to the WebUI folder `\CatsListingDemo.WebMvc` and execute `dotnet run`.
+2. To run the UI project, navigate to the WebUI folder `\CatsListingDemo.WebMvc` and execute `dotnet run`.
 
 ## Unit Tests
 Unit tests for all application layers are included (except for the controllers). Test harness is created using [MS Tests](https://en.wikipedia.org/wiki/Visual_Studio_Unit_Testing_Framework) with a combination of [AutoFixture](https://github.com/AutoFixture/AutoFixture) and [FakeItEasy](https://github.com/FakeItEasy/FakeItEasy) for creating test fixtures and mocking of dependencies respectively and [FluentAssertions](https://github.com/fluentassertions/fluentassertions) for readable, fluent-syntax assertions.
