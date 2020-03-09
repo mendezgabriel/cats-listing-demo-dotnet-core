@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace CatsListingDemo.Business.Tests
 {
     [TestClass]
-    public class PetOwnerProcessorTests
+    public class PetOwnerServiceTests
     {
         private static Fixture _fixture;
         private PetOwnerService _systemUnderTest;
