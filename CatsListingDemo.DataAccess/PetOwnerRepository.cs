@@ -15,39 +15,24 @@ namespace CatsListingDemo.DataAccess
     /// </summary>
     public class PetOwnerRepository : IPetOwnerRepository
     {
-        private readonly IDataService _dataService;
-        private readonly IConfiguration _configuration;
-        private string _petOwnersServiceUrl;
+        private readonly IPetOwnerServiceClient _petOwnerServiceClient;
 
         /// <summary>
 		/// Creates a new instance of this.
 		/// </summary>
-		/// <param name="configuration">How to persist/retrieve configuration data.</param>
-        /// <param name="dataService">The external data service.</param>
-        public PetOwnerRepository(IConfiguration configuration,
-            IDataService dataService)
+		/// <param name="petOwnerServiceClient">How to persist/retrieve pet owner data.</param>
+        public PetOwnerRepository(IPetOwnerServiceClient petOwnerServiceClient)
         {
-            _dataService = dataService;
-            _configuration = configuration;
-            _petOwnersServiceUrl = _configuration["PetOwnersService:Url"];
+            _petOwnerServiceClient = petOwnerServiceClient;
         }
 
         /// <summary>
         /// Gets a collection of all pet owners from the data store.
         /// </summary>
         /// <returns>A collection of <see cref="PetOwner"/>.</returns>
-        public async Task<IEnumerable<PetOwner>> GetAllAsync()
+        public Task<List<PetOwner>> GetAllAsync()
         {
-            var petOwners = new PetOwner[] { };
-
-            string resourceContent = _dataService.GetResourceContent(_petOwnersServiceUrl);
-
-            if (!string.IsNullOrWhiteSpace(resourceContent))
-            {
-                petOwners = JsonConvert.DeserializeObject<PetOwner[]>(resourceContent);
-            }
-
-            return petOwners;
+            return _petOwnerServiceClient.GetAsync();
         }
     }
 }
