@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CatsListingDemo.DataAccess.Tests
 {
@@ -18,8 +19,7 @@ namespace CatsListingDemo.DataAccess.Tests
         private static Fixture _fixture;
         private PetOwnerRepository _systemUnderTest;
         private List<PetOwner> _petOwnersList;
-        private Fake<IConfiguration> _configuration;
-        private Fake<IDataService> _dataService;
+        private Fake<IPetOwnerServiceClient> _petOwnerServiceClient;
 
         [ClassInitialize]
         public static void SetUpTestFixture(TestContext context)
@@ -32,47 +32,45 @@ namespace CatsListingDemo.DataAccess.Tests
         public void SetUpSystemUnderTestAndDependencies()
         {
             // Arrange
-            _configuration = _fixture.Freeze<Fake<IConfiguration>>();
-            _dataService = _fixture.Freeze<Fake<IDataService>>();
+            _petOwnerServiceClient = _fixture.Freeze<Fake<IPetOwnerServiceClient>>();
             _systemUnderTest = _fixture.Create<PetOwnerRepository>();
 
             _petOwnersList = _fixture.Freeze<List<PetOwner>>();
-            A.CallTo(() => _configuration.FakedObject["PetOwnersService:Url"]).Returns(string.Empty);
-            A.CallTo(() => _dataService.FakedObject.GetResourceContent(string.Empty)).Returns(JsonConvert.SerializeObject(_petOwnersList));
+            A.CallTo(() => _petOwnerServiceClient.FakedObject.GetAsync()).Returns(_petOwnersList);
 
         }
 
         [TestMethod]
-        public void AListOfPetOwnersShouldBeRetrievedWhenDataServiceIsAvailable()
+        public async Task AListOfPetOwnersShouldBeRetrievedWhenDataServiceIsAvailable()
         {
             // Act
-            var actual = _systemUnderTest.GetAll();
+            var actual = await _systemUnderTest.GetAllAsync();
 
             // Assert
             actual.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
-        public void AnEmptyListShouldBeRetrievedWhenDataServiceIsNotAvailable()
+        public async Task AnEmptyListShouldBeRetrievedWhenDataServiceIsNotAvailable()
         {
             // Arrange
-            A.CallTo(() => _dataService.FakedObject.GetResourceContent(A<string>.Ignored)).Returns(string.Empty);
+            A.CallTo(() => _petOwnerServiceClient.FakedObject.GetAsync()).Returns(new List<PetOwner>());
 
             // Act
-            var actual = _systemUnderTest.GetAll();
+            var actual = await _systemUnderTest.GetAllAsync();
 
             // Assert
             actual.Should().BeEmpty();
         }
 
         [TestMethod]
-        public void NullShouldNotBeRetrievedWhenDataServiceIsNotAvailable()
+        public async Task NullShouldNotBeRetrievedWhenDataServiceIsNotAvailable()
         {
             // Arrange
-            A.CallTo(() => _dataService.FakedObject.GetResourceContent(A<string>.Ignored)).Returns(string.Empty);
+            A.CallTo(() => _petOwnerServiceClient.FakedObject.GetAsync()).Returns(new List<PetOwner>());
 
             // Act
-            var actual = _systemUnderTest.GetAll();
+            var actual = await _systemUnderTest.GetAllAsync();
 
             // Assert
             actual.Should().NotBeNull();

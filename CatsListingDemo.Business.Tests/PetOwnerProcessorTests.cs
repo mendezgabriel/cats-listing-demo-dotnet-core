@@ -8,6 +8,7 @@ using CatsListingDemo.RepositoryInterfaces;
 using CatsListingDemo.Domain;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace CatsListingDemo.Business.Tests
 {
@@ -41,27 +42,27 @@ namespace CatsListingDemo.Business.Tests
         }
 
         [TestMethod]
-        public void GetOwnersByPetTypeShouldNotBeNull()
+        public async Task GetOwnersByPetTypeShouldNotBeNull()
         {
             // Act
-            var result = _systemUnderTest.GetAllBy(_petType);
+            var result = await _systemUnderTest.GetAllByAsync(_petType);
 
             // Assert
             result.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void GetOwnersByPetTypeShouldReturnAListOfPetOwners()
+        public async Task GetOwnersByPetTypeShouldReturnAListOfPetOwners()
         {
             // Act
-            var result = _systemUnderTest.GetAllBy(_petType);
+            var result = await _systemUnderTest.GetAllByAsync(_petType);
 
             // Assert
             result.Should().BeOfType<List<PetOwner>>();
         }
 
         [TestMethod]
-        public void GetOwnersByPetTypeShouldReturnOwnersWithTheSpecifiedPetTypeOnly()
+        public async Task GetOwnersByPetTypeShouldReturnOwnersWithTheSpecifiedPetTypeOnly()
         {
             // Arrange
             _petType = PetType.Dog;
@@ -77,7 +78,7 @@ namespace CatsListingDemo.Business.Tests
                 };
 
             // Act
-            var result = _systemUnderTest.GetAllBy(_petType);
+            var result = await _systemUnderTest.GetAllByAsync(_petType);
 
             // Assert
             result.TrueForAll(owner =>

@@ -8,8 +8,6 @@ namespace CatsListingDemo.Domain
     /// </summary>
     public class PetOwner
     {
-        private IEnumerable<Pet> _pets;
-
         /// <summary>
         /// The owner's name.
         /// </summary>
@@ -28,10 +26,6 @@ namespace CatsListingDemo.Domain
         /// <summary>
         /// A collection of pets owned.
         /// </summary>
-        public IEnumerable<Pet> Pets {
-
-            get { return _pets; }
-            set { _pets = value ?? new List<Pet>(); }
-        }
+        public IEnumerable<Pet> Pets { get; set; } = new List<Pet>();
     }
 }
