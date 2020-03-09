@@ -15,7 +15,7 @@ namespace CatsListingDemo.Business.Tests
     public class PetOwnerProcessorTests
     {
         private static Fixture _fixture;
-        private PetOwnerProcessor _systemUnderTest;
+        private PetOwnerService _systemUnderTest;
         private List<PetOwner> _petOwnersList;
         private Fake<IPetOwnerRepository> _petOwnerRepository;
         private PetType _petType;
@@ -32,7 +32,7 @@ namespace CatsListingDemo.Business.Tests
         {
             // Arrange
             _petOwnerRepository = _fixture.Freeze<Fake<IPetOwnerRepository>>();
-            _systemUnderTest = _fixture.Create<PetOwnerProcessor>();
+            _systemUnderTest = _fixture.Create<PetOwnerService>();
             _petType = PetType.Unknown;
 
             _petOwnersList = _fixture.Freeze<List<PetOwner>>();

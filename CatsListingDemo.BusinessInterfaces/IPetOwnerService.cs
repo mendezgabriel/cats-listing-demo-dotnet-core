@@ -9,7 +9,7 @@ namespace CatsListingDemo.BusinessInterfaces
     /// <summary>
     /// Defines the contract methods for the business layer in order to process a <see cref="Domain.PetOwner"/> object.
     /// </summary>
-    public interface IPetOwnerProcessor
+    public interface IPetOwnerService
     {
         /// <summary>
         /// Gets a collection of <see cref="PetOwner"/> where each person owns at least one pet of the type

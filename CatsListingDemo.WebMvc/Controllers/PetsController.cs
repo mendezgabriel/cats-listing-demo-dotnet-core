@@ -15,15 +15,15 @@ namespace CatsListingDemo.WebMvc.Controllers
     /// </summary>
     public class PetsController : Controller
     {
-        private readonly IPetOwnerProcessor _petOwnerProcessor;
+        private readonly IPetOwnerService _petOwnerService;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// <param name="petOwnerProcessor">How to process pet owners related data according to business rules.</param>
-        public PetsController(IPetOwnerProcessor petOwnerProcessor)
+        /// <param name="petOwnerService">How to process pet owners related data according to business rules.</param>
+        public PetsController(IPetOwnerService petOwnerService)
         {
-            _petOwnerProcessor = petOwnerProcessor;
+            _petOwnerService = petOwnerService;
         }
 
         // GET: Pets
@@ -36,7 +36,7 @@ namespace CatsListingDemo.WebMvc.Controllers
             var petTypeFilter = PetType.Cat;
             var viewModel = new List<PetsByOwnersGenderViewModel>();
 
-            var ownersByGenderGroup = (await _petOwnerProcessor.GetAllByAsync(petTypeFilter))
+            var ownersByGenderGroup = (await _petOwnerService.GetAllByAsync(petTypeFilter))
                 .GroupBy(owner => owner.Gender);
 
             ownersByGenderGroup.ToList().ForEach(groupedItem =>

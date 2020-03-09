@@ -27,7 +27,7 @@ namespace CatsListingDemo.WebMvc
             services.AddSingleton<IHttpHandler, HttpHandler>();
             services.AddScoped<IPetOwnerServiceClient, PetOwnerServiceClient>();
             services.AddScoped<IPetOwnerRepository, PetOwnerRepository>();
-            services.AddScoped<IPetOwnerProcessor, PetOwnerProcessor>();
+            services.AddScoped<IPetOwnerService, PetOwnerService>();
 
             services.AddControllersWithViews();
         }

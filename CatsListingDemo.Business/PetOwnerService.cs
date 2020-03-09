@@ -10,7 +10,7 @@ namespace CatsListingDemo.Business
     /// <summary>
     /// Process a <see cref="Domain.PetOwner"/> according to the business rules.
     /// </summary>
-    public class PetOwnerProcessor : IPetOwnerProcessor
+    public class PetOwnerService : IPetOwnerService
     {
         private readonly IPetOwnerRepository _petOwnerRepository;
 
@@ -18,7 +18,7 @@ namespace CatsListingDemo.Business
 		/// Creates a new instance of this.
 		/// </summary>
 		/// <param name="petOwnerRepository">How to persist/retrieve pet owner related data from the data repository.</param>
-        public PetOwnerProcessor(IPetOwnerRepository petOwnerRepository)
+        public PetOwnerService(IPetOwnerRepository petOwnerRepository)
         {
             _petOwnerRepository = petOwnerRepository;
         }
